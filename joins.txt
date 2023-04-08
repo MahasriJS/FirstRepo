@@ -1,0 +1,656 @@
+mysql> SELECT customer.cus_name, customer.occupation,orders.order_name,orders.order_price
+    -> FROM customer INNER JOIN orders ON
+    -> customer.cus_id=orders.order_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
++----------+-------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer;
++--------+----------+---------+-------------+------------+------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    |
++--------+----------+---------+-------------+------------+------------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |
++--------+----------+---------+-------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM orders;
++----------+------------+-------------+----------------+--------+
+| order_id | order_name | order_price | order_quantity | cus_id |
++----------+------------+-------------+----------------+--------+
+|        1 | pen        |          40 |              4 |      3 |
+|        2 | pencil     |          60 |              3 |      1 |
+|        3 | eraser     |          10 |              2 |      4 |
+|        4 | scale      |          40 |              5 |    101 |
+|        5 | pen        |          10 |              1 |      3 |
+|        6 | eraser     |          40 |              8 |      4 |
+|        7 | pen        |          10 |              1 |      3 |
++----------+------------+-------------+----------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name, customer.occupation,orders.order_name,orders.order_price
+    -> FROM orders INNER JOIN customer ON
+    -> customer.cus_id=orders.order_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
++----------+-------------+------------+-------------+
+4 rows in set (0.00 sec)
+mysql> SELECT customer.cus_name, customer.occupation,orders.order_name,orders.order_price
+    -> FROM customer LEFT JOIN orders ON
+    -> customer.cus_id=orders.order_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
+| Mark     | NULL        | NULL       |        NULL |
++----------+-------------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name,customer.occupation,orders.order_name,orders.order_price
+    -> FROM orders LEFT JOIN customer ON
+    -> orders.order_id=customer.cus_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| NULL     | NULL        | pencil     |          60 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
+| NULL     | NULL        | eraser     |          40 |
+| NULL     | NULL        | pen        |          10 |
++----------+-------------+------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name,customer.occupation,orders.order_name,orders.order_price
+    -> FROM customer RIGHT JOIN orders ON
+    -> orders.order_id=customer.cus_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| NULL     | NULL        | pencil     |          60 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
+| NULL     | NULL        | eraser     |          40 |
+| NULL     | NULL        | pen        |          10 |
++----------+-------------+------------+-------------+
+7 rows in set (0.00 sec)
+
+
+mysql> SELECT customer.cus_name,customer.occupation,orders.order_name,orders.order_price
+    -> FROM orders RIGHT JOIN customer ON
+    -> orders.order_id=customer.cus_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
+| Mark     | NULL        | NULL       |        NULL |
++----------+-------------+------------+-------------+
+5 rows in set (0.00 sec)
+
+
+mysql> SELECT customer.cus_name,customer.occupation,orders.order_name,orders.order_price
+    -> FROM customer CROSS JOIN orders ON
+    -> orders.order_id=customer.cus_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
++----------+-------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name,customer.occupation,orders.order_name,orders.order_price
+    -> FROM orders CROSS JOIN customer ON
+    -> orders.order_id=customer.cus_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
++----------+-------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer;
++--------+----------+---------+-------------+------------+------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    |
++--------+----------+---------+-------------+------------+------------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |
++--------+----------+---------+-------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM orders;
++----------+------------+-------------+----------------+--------+
+| order_id | order_name | order_price | order_quantity | cus_id |
++----------+------------+-------------+----------------+--------+
+|        1 | pen        |          40 |              4 |      3 |
+|        2 | pencil     |          60 |              3 |      1 |
+|        3 | eraser     |          10 |              2 |      4 |
+|        4 | scale      |          40 |              5 |    101 |
+|        5 | pen        |          10 |              1 |      3 |
+|        6 | eraser     |          40 |              8 |      4 |
+|        7 | pen        |          10 |              1 |      3 |
++----------+------------+-------------+----------------+--------+
+7 rows in set (0.00 sec)
+
+
+
+mysql> SELECT *FROM customer INNER JOIN orders;
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity | cus_id |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        1 | pen        |          40 |              4 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        1 | pen        |          40 |              4 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        1 | pen        |          40 |              4 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |      3 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        1 | pen        |          40 |              4 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        2 | pencil     |          60 |              3 |      1 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        2 | pencil     |          60 |              3 |      1 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        2 | pencil     |          60 |              3 |      1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        2 | pencil     |          60 |              3 |      1 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        2 | pencil     |          60 |              3 |      1 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        3 | eraser     |          10 |              2 |      4 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        3 | eraser     |          10 |              2 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        3 | eraser     |          10 |              2 |      4 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        3 | eraser     |          10 |              2 |      4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        3 | eraser     |          10 |              2 |      4 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |    101 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        4 | scale      |          40 |              5 |    101 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        4 | scale      |          40 |              5 |    101 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        4 | scale      |          40 |              5 |    101 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        4 | scale      |          40 |              5 |    101 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        5 | pen        |          10 |              1 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        5 | pen        |          10 |              1 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        5 | pen        |          10 |              1 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        5 | pen        |          10 |              1 |      3 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        5 | pen        |          10 |              1 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        6 | eraser     |          40 |              8 |      4 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        6 | eraser     |          40 |              8 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |      4 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        6 | eraser     |          40 |              8 |      4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        6 | eraser     |          40 |              8 |      4 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        7 | pen        |          10 |              1 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        7 | pen        |          10 |              1 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        7 | pen        |          10 |              1 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        7 | pen        |          10 |              1 |      3 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        7 | pen        |          10 |              1 |      3 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+35 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer CROSS JOIN orders;
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity | cus_id |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        1 | pen        |          40 |              4 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        1 | pen        |          40 |              4 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        1 | pen        |          40 |              4 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |      3 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        1 | pen        |          40 |              4 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        2 | pencil     |          60 |              3 |      1 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        2 | pencil     |          60 |              3 |      1 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        2 | pencil     |          60 |              3 |      1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        2 | pencil     |          60 |              3 |      1 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        2 | pencil     |          60 |              3 |      1 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        3 | eraser     |          10 |              2 |      4 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        3 | eraser     |          10 |              2 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        3 | eraser     |          10 |              2 |      4 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        3 | eraser     |          10 |              2 |      4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        3 | eraser     |          10 |              2 |      4 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |    101 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        4 | scale      |          40 |              5 |    101 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        4 | scale      |          40 |              5 |    101 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        4 | scale      |          40 |              5 |    101 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        4 | scale      |          40 |              5 |    101 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        5 | pen        |          10 |              1 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        5 | pen        |          10 |              1 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        5 | pen        |          10 |              1 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        5 | pen        |          10 |              1 |      3 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        5 | pen        |          10 |              1 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        6 | eraser     |          40 |              8 |      4 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        6 | eraser     |          40 |              8 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |      4 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        6 | eraser     |          40 |              8 |      4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        6 | eraser     |          40 |              8 |      4 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        7 | pen        |          10 |              1 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        7 | pen        |          10 |              1 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        7 | pen        |          10 |              1 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        7 | pen        |          10 |              1 |      3 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        7 | pen        |          10 |              1 |      3 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+35 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name, customer.occupation,orders.order_name,orders.order_price
+    -> FROM customer INNER JOIN orders ON
+    -> customer.cus_id=orders.order_id;
++----------+-------------+------------+-------------+
+| cus_name | occupation  | order_name | order_price |
++----------+-------------+------------+-------------+
+| John     | BusinessMan | pen        |          40 |
+| Sam      | SalesMan    | eraser     |          10 |
+| Luke     | Manager     | scale      |          40 |
+| Louise   | PoliceMan   | pen        |          10 |
++----------+-------------+------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT orders.order_name,COUNT(order_name)
+    -> FROM customer INNER JOIN orders ON
+    -> orders.order_id=customer.cus_id GROUP BY order_name;
++------------+-------------------+
+| order_name | COUNT(order_name) |
++------------+-------------------+
+| pen        |                 2 |
+| eraser     |                 1 |
+| scale      |                 1 |
++------------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name, orders.order_name,orders.order_price,orders.order_quantity
+    -> FROM customer INNER JOIN orders WHERE orders.order_price > 20;
++----------+------------+-------------+----------------+
+| cus_name | order_name | order_price | order_quantity |
++----------+------------+-------------+----------------+
+| John     | eraser     |          40 |              8 |
+| John     | scale      |          40 |              5 |
+| John     | pencil     |          60 |              3 |
+| John     | pen        |          40 |              4 |
+| Sam      | eraser     |          40 |              8 |
+| Sam      | scale      |          40 |              5 |
+| Sam      | pencil     |          60 |              3 |
+| Sam      | pen        |          40 |              4 |
+| Luke     | eraser     |          40 |              8 |
+| Luke     | scale      |          40 |              5 |
+| Luke     | pencil     |          60 |              3 |
+| Luke     | pen        |          40 |              4 |
+| Louise   | eraser     |          40 |              8 |
+| Louise   | scale      |          40 |              5 |
+| Louise   | pencil     |          60 |              3 |
+| Louise   | pen        |          40 |              4 |
+| Mark     | eraser     |          40 |              8 |
+| Mark     | scale      |          40 |              5 |
+| Mark     | pencil     |          60 |              3 |
+| Mark     | pen        |          40 |              4 |
++----------+------------+-------------+----------------+
+20 rows in set (0.00 sec)
+
+
+mysql> SELECT *
+    -> FROM customer INNER JOIN orders WHERE orders.order_price > 20;
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity | cus_id |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        6 | eraser     |          40 |              8 |      4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        4 | scale      |          40 |              5 |    101 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        2 | pencil     |          60 |              3 |      1 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        1 | pen        |          40 |              4 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        6 | eraser     |          40 |              8 |      4 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        4 | scale      |          40 |              5 |    101 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        2 | pencil     |          60 |              3 |      1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        4 | scale      |          40 |              5 |    101 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        2 | pencil     |          60 |              3 |      1 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        1 | pen        |          40 |              4 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        6 | eraser     |          40 |              8 |      4 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        4 | scale      |          40 |              5 |    101 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        2 | pencil     |          60 |              3 |      1 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        1 | pen        |          40 |              4 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        6 | eraser     |          40 |              8 |      4 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |    101 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        2 | pencil     |          60 |              3 |      1 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        1 | pen        |          40 |              4 |      3 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM customer INNER JOIN  orders
+    -> USING(cus_id);
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        2 | pencil     |          60 |              3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        3 | eraser     |          10 |              2 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        5 | pen        |          10 |              1 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        7 | pen        |          10 |              1 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM customer INNER JOIN orders
+    -> USING(cus_id) WHERE cus_name='John';
++--------+----------+---------+-------------+------------+---------+----------+------------+-------------+----------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address | order_id | order_name | order_price | order_quantity |
++--------+----------+---------+-------------+------------+---------+----------+------------+-------------+----------------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai |        2 | pencil     |          60 |              3 |
++--------+----------+---------+-------------+------------+---------+----------+------------+-------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM customer INNER JOIN  orders
+    -> USING(cus_id) WHERE cus_name='sam';
++--------+----------+---------+------------+------------+---------+----------+------------+-------------+----------------+
+| cus_id | cus_name | cus_age | occupation | cus_salary | address | order_id | order_name | order_price | order_quantity |
++--------+----------+---------+------------+------------+---------+----------+------------+-------------+----------------+
+|      3 | Sam      |      26 | SalesMan   |      40000 | Austrin |        1 | pen        |          40 |              4 |
+|      3 | Sam      |      26 | SalesMan   |      40000 | Austrin |        5 | pen        |          10 |              1 |
+|      3 | Sam      |      26 | SalesMan   |      40000 | Austrin |        7 | pen        |          10 |              1 |
++--------+----------+---------+------------+------------+---------+----------+------------+-------------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer;
++--------+----------+---------+-------------+------------+------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    |
++--------+----------+---------+-------------+------------+------------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |
++--------+----------+---------+-------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM orders;
++----------+------------+-------------+----------------+--------+
+| order_id | order_name | order_price | order_quantity | cus_id |
++----------+------------+-------------+----------------+--------+
+|        1 | pen        |          40 |              4 |      3 |
+|        2 | pencil     |          60 |              3 |      1 |
+|        3 | eraser     |          10 |              2 |      4 |
+|        4 | scale      |          40 |              5 |    101 |
+|        5 | pen        |          10 |              1 |      3 |
+|        6 | eraser     |          40 |              8 |      4 |
+|        7 | pen        |          10 |              1 |      3 |
++----------+------------+-------------+----------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer LEFT JOIN orders
+    -> ON customers.cus_id=orders.order_id;
+ERROR 1054 (42S22): Unknown column 'customers.cus_id' in 'on clause'
+mysql> SELECT *FROM customer LEFT JOIN orders
+    -> ON customer.cus_id=orders.order_id;
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity | cus_id |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        1 | pen        |          40 |              4 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        3 | eraser     |          10 |              2 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        4 | scale      |          40 |              5 |    101 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        5 | pen        |          10 |              1 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |     NULL | NULL       |        NULL |           NULL |   NULL |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer LEFT JOIN orders
+    -> USING(cus_id);
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        2 | pencil     |          60 |              3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        7 | pen        |          10 |              1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        5 | pen        |          10 |              1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        3 | eraser     |          10 |              2 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |     NULL | NULL       |        NULL |           NULL |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT order_price, SUM(order_price) AS 'total price' FROM customer LEFT JOIN orders
+    -> ON customer.cus_id=orders.order_id GROUP BY order_price;
++-------------+-------------+
+| order_price | total price |
++-------------+-------------+
+|          40 |          80 |
+|          10 |          20 |
+|        NULL |        NULL |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT order_price, SUM(order_price) AS 'total price' FROM customer INNER JOIN orders
+    -> ON customer.cus_id=orders.order_id GROUP BY order_price;
++-------------+-------------+
+| order_price | total price |
++-------------+-------------+
+|          40 |          80 |
+|          10 |          20 |
++-------------+-------------+
+2 rows in set (0.00 sec)
+mysql> SELECT order_name FROM customer LEFT JOIN orders
+    -> ON customer.cus_id=orders.order_id ORDER BY order_name;
++------------+
+| order_name |
++------------+
+| NULL       |
+| eraser     |
+| pen        |
+| pen        |
+| scale      |
++------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT address,occupation FROM customer LEFT JOIN orders
+    -> ON customer.cus_id=orders.order_id WHERE occupation IS NULL;
++------------+------------+
+| address    | occupation |
++------------+------------+
+| Coimbatore | NULL       |
++------------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT *FROM customer LEFT JOIN orders
+    -> ON order_price=40;
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity | cus_id |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        6 | eraser     |          40 |              8 |      4 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        4 | scale      |          40 |              5 |    101 |
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        1 | pen        |          40 |              4 |      3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        6 | eraser     |          40 |              8 |      4 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        4 | scale      |          40 |              5 |    101 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |      3 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        4 | scale      |          40 |              5 |    101 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        1 | pen        |          40 |              4 |      3 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        6 | eraser     |          40 |              8 |      4 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        4 | scale      |          40 |              5 |    101 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |        1 | pen        |          40 |              4 |      3 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        6 | eraser     |          40 |              8 |      4 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |    101 |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        1 | pen        |          40 |              4 |      3 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+--------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer LEFT JOIN orders
+    -> WHERE order_price=40;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE order_price=40' at line 2
+mysql> SELECT *FROM customer RIGHT JOIN orders
+    -> USING(cus_id);
++--------+----------+------------+-------------+----------------+----------+---------+-------------+------------+------------+
+| cus_id | order_id | order_name | order_price | order_quantity | cus_name | cus_age | occupation  | cus_salary | address    |
++--------+----------+------------+-------------+----------------+----------+---------+-------------+------------+------------+
+|      3 |        1 | pen        |          40 |              4 | Sam      |      26 | SalesMan    |      40000 | Austrin    |
+|      1 |        2 | pencil     |          60 |              3 | John     |      24 | BusinessMan |      30000 | Chennai    |
+|      4 |        3 | eraser     |          10 |              2 | Luke     |      25 | Manager     |      35000 | Tokoyo     |
+|    101 |        4 | scale      |          40 |              5 | Mark     |      19 | NULL        |       NULL | Coimbatore |
+|      3 |        5 | pen        |          10 |              1 | Sam      |      26 | SalesMan    |      40000 | Austrin    |
+|      4 |        6 | eraser     |          40 |              8 | Luke     |      25 | Manager     |      35000 | Tokoyo     |
+|      3 |        7 | pen        |          10 |              1 | Sam      |      26 | SalesMan    |      40000 | Austrin    |
++--------+----------+------------+-------------+----------------+----------+---------+-------------+------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer RIGHT JOIN orders
+    -> ON customer.cus_id=orders.order_id;
++--------+----------+---------+-------------+------------+----------+----------+------------+-------------+----------------+--------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address  | order_id | order_name | order_price | order_quantity | cus_id |
++--------+----------+---------+-------------+------------+----------+----------+------------+-------------+----------------+--------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai  |        1 | pen        |          40 |              4 |      3 |
+|   NULL | NULL     |    NULL | NULL        |       NULL | NULL     |        2 | pencil     |          60 |              3 |      1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin  |        3 | eraser     |          10 |              2 |      4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo   |        4 | scale      |          40 |              5 |    101 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York |        5 | pen        |          10 |              1 |      3 |
+|   NULL | NULL     |    NULL | NULL        |       NULL | NULL     |        6 | eraser     |          40 |              8 |      4 |
+|   NULL | NULL     |    NULL | NULL        |       NULL | NULL     |        7 | pen        |          10 |              1 |      3 |
++--------+----------+---------+-------------+------------+----------+----------+------------+-------------+----------------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT *FROM customer LEFT JOIN orders
+    -> USING(cus_id)
+    -> ;
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+| cus_id | cus_name | cus_age | occupation  | cus_salary | address    | order_id | order_name | order_price | order_quantity |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+|      1 | John     |      24 | BusinessMan |      30000 | Chennai    |        2 | pencil     |          60 |              3 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        7 | pen        |          10 |              1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        5 | pen        |          10 |              1 |
+|      3 | Sam      |      26 | SalesMan    |      40000 | Austrin    |        1 | pen        |          40 |              4 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        6 | eraser     |          40 |              8 |
+|      4 | Luke     |      25 | Manager     |      35000 | Tokoyo     |        3 | eraser     |          10 |              2 |
+|      5 | Louise   |      32 | PoliceMan   |      50000 | New York   |     NULL | NULL       |        NULL |           NULL |
+|    101 | Mark     |      19 | NULL        |       NULL | Coimbatore |        4 | scale      |          40 |              5 |
++--------+----------+---------+-------------+------------+------------+----------+------------+-------------+----------------+
+8 rows in set (0.00 sec)
+
+
+mysql> SELECT orders.order_name,orders.order_price FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
+ERROR 1054 (42S22): Unknown column 'orders.order_name' in 'field list'
+mysql> SELECT orders.cus_id,orders.order_name FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
+ERROR 1054 (42S22): Unknown column 'orders.cus_id' in 'field list'
+mysql> SELECT o1.order_name,o1.order_price FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
++------------+-------------+
+| order_name | order_price |
++------------+-------------+
+| pen        |          40 |
+| pen        |          40 |
+| pen        |          40 |
+| pencil     |          60 |
+| eraser     |          10 |
+| eraser     |          10 |
+| scale      |          40 |
+| pen        |          10 |
+| pen        |          10 |
+| pen        |          10 |
+| eraser     |          40 |
+| eraser     |          40 |
+| pen        |          10 |
+| pen        |          10 |
+| pen        |          10 |
++------------+-------------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT orders.cus_id,orders.order_name,o1.order_id FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
+ERROR 1054 (42S22): Unknown column 'orders.cus_id' in 'field list'
+mysql> SELECT o1.order_name,o1.order_price o1.cus_id FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.cus_id FROM orders o1, orders o2
+WHERE o1.cus_id=o2.cus_id' at line 1
+mysql> SELECT o1.order_name,o1.order_id FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
++------------+----------+
+| order_name | order_id |
++------------+----------+
+| pen        |        1 |
+| pen        |        1 |
+| pen        |        1 |
+| pencil     |        2 |
+| eraser     |        3 |
+| eraser     |        3 |
+| scale      |        4 |
+| pen        |        5 |
+| pen        |        5 |
+| pen        |        5 |
+| eraser     |        6 |
+| eraser     |        6 |
+| pen        |        7 |
+| pen        |        7 |
+| pen        |        7 |
++------------+----------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT o1.order_name,o1.cus_id FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id;
++------------+--------+
+| order_name | cus_id |
++------------+--------+
+| pen        |      3 |
+| pen        |      3 |
+| pen        |      3 |
+| pencil     |      1 |
+| eraser     |      4 |
+| eraser     |      4 |
+| scale      |    101 |
+| pen        |      3 |
+| pen        |      3 |
+| pen        |      3 |
+| eraser     |      4 |
+| eraser     |      4 |
+| pen        |      3 |
+| pen        |      3 |
+| pen        |      3 |
++------------+--------+
+15 rows in set (0.00 sec)
+
+mysql> SELECT o1.order_name,o1.order_id FROM orders o1, orders o2
+    -> WHERE o1.cus_id=o2.cus_id GROUP BY order_id;
++------------+----------+
+| order_name | order_id |
++------------+----------+
+| pen        |        1 |
+| pencil     |        2 |
+| eraser     |        3 |
+| scale      |        4 |
+| pen        |        5 |
+| eraser     |        6 |
+| pen        |        7 |
++------------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT customer.cus_name, orders.order_price
+    -> FROM customer NATURAL JOIN orders;
++----------+-------------+
+| cus_name | order_price |
++----------+-------------+
+| Sam      |          40 |
+| John     |          60 |
+| Luke     |          10 |
+| Mark     |          40 |
+| Sam      |          10 |
+| Luke     |          40 |
+| Sam      |          10 |
++----------+-------------+
+7 rows in set (0.00 sec)
